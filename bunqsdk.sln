@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.489
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lakerfield.BunqSdk", "src\Lakerfield.BunqSdk\Lakerfield.BunqSdk.csproj", "{AEB2CF96-B21F-417F-8061-C21FD551FC2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playground", "src\Playground\Playground.csproj", "{FAB2639B-8C93-4CB5-84A0-C70E655AE6EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AEB2CF96-B21F-417F-8061-C21FD551FC2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEB2CF96-B21F-417F-8061-C21FD551FC2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEB2CF96-B21F-417F-8061-C21FD551FC2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEB2CF96-B21F-417F-8061-C21FD551FC2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAB2639B-8C93-4CB5-84A0-C70E655AE6EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAB2639B-8C93-4CB5-84A0-C70E655AE6EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAB2639B-8C93-4CB5-84A0-C70E655AE6EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAB2639B-8C93-4CB5-84A0-C70E655AE6EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51542F57-AD78-4ACC-862C-6F3256C3081B}
+	EndGlobalSection
+EndGlobal
