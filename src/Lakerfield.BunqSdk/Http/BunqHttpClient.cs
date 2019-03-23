@@ -121,7 +121,7 @@ namespace Lakerfield.BunqSdk.Http
 
     private void SetSessionHeaders(HttpRequestMessage requestMessage)
     {
-      var sessionToken = UserStore.Session?.Token;
+      var sessionToken = GetSessionToken();
 
       if (string.IsNullOrWhiteSpace(sessionToken))
         return;
@@ -133,6 +133,19 @@ namespace Lakerfield.BunqSdk.Http
     private string GenerateSignature(HttpRequestMessage requestMessage)
     {
       return SecurityUtils.GenerateSignature(requestMessage, UserStore.Installation.ClientKeyPair);
+    }
+
+    /// <returns> The session token, installation token if the session isn't created yet, or null if no installation
+    /// is created either. </returns>
+    public string GetSessionToken()
+    {
+      if (!string.IsNullOrWhiteSpace(UserStore.Session.Token))
+        return UserStore.Session.Token;
+
+      if (!string.IsNullOrWhiteSpace(UserStore.Installation.Token))
+        return UserStore.Installation.Token;
+
+      return null;
     }
 
 

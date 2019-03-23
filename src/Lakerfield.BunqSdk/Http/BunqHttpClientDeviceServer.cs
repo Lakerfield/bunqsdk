@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Lakerfield.BunqSdk.Json;
 using Lakerfield.BunqSdk.Model;
+using Newtonsoft.Json;
 
 namespace Lakerfield.BunqSdk.Http
 {
@@ -34,7 +35,7 @@ namespace Lakerfield.BunqSdk.Http
 
       var request = new HttpRequestMessage(HttpMethod.Post, ENDPOINT_URL_POST)
       {
-        Content = new StringContent(BunqJsonConvert.SerializeObject(data), Encoding.UTF8),
+        Content = new ByteArrayContent(Encoding.UTF8.GetBytes(BunqJsonConvert.SerializeObject(data, Formatting.Indented))),
       };
 
       var response = await Client.BunqSendAsync(request);
