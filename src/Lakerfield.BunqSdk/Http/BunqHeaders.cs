@@ -13,7 +13,7 @@ namespace Lakerfield.BunqSdk.Http
     /// <summary>
     /// Error constatns.
     /// </summary>
-    private static string ERROR_COULD_NOT_DETERMINE_RESPONSE_ID_HEADER =
+    public static string ERROR_COULD_NOT_DETERMINE_RESPONSE_ID_HEADER =
         "The response header \"X-Bunq-Client-Response-Id\" or \"x-bunq-client-response-id\" could not be found.";
 
     /// <summary>
@@ -22,7 +22,7 @@ namespace Lakerfield.BunqSdk.Http
     private const string DEVICE_SERVER_URL = "device-server";
     private const string INSTALLATION_URL = "installation";
     private const string SESSION_SERVER_URL = "session-server";
-    private static readonly string[] URIS_NOT_REQUIRING_ACTIVE_SESSION = new string[]
+    public static readonly string[] URIS_NOT_REQUIRING_ACTIVE_SESSION = new string[]
     {
             DEVICE_SERVER_URL,
             INSTALLATION_URL,
@@ -36,34 +36,34 @@ namespace Lakerfield.BunqSdk.Http
     public const string HEADER_CONTENT_TYPE = "Content-Type";
     public const string HEADER_CACHE_CONTROL = "Cache-Control";
     public const string HEADER_USER_AGENT = "User-Agent";
-    private const string HEADER_LANGUAGE = "X-Bunq-Language";
-    private const string HEADER_REGION = "X-Bunq-Region";
-    private const string HEADER_REQUEST_ID = "X-Bunq-Client-Request-Id";
-    private const string HEADER_GEOLOCATION = "X-Bunq-Geolocation";
-    private const string HEADER_SIGNATURE = "X-Bunq-Client-Signature";
-    private const string HEADER_AUTHENTICATION = "X-Bunq-Client-Authentication";
-    private static string HEADER_RESPONSE_ID_LOWER_CASE = "x-bunq-client-response-id";
-    private static string HEADER_RESPONSE_ID_UPPER_CASE = "X-Bunq-Client-Response-Id";
+    public const string HEADER_LANGUAGE = "X-Bunq-Language";
+    public const string HEADER_REGION = "X-Bunq-Region";
+    public const string HEADER_REQUEST_ID = "X-Bunq-Client-Request-Id";
+    public const string HEADER_GEOLOCATION = "X-Bunq-Geolocation";
+    public const string HEADER_SIGNATURE = "X-Bunq-Client-Signature";
+    public const string HEADER_AUTHENTICATION = "X-Bunq-Client-Authentication";
+    public static string HEADER_RESPONSE_ID_LOWER_CASE = "x-bunq-client-response-id";
+    public static string HEADER_RESPONSE_ID_UPPER_CASE = "X-Bunq-Client-Response-Id";
 
     /// <summary>
     /// Field constants.
     /// </summary>
-    private const string FIELD_ERROR = "Error";
-    private const string FIELD_ERROR_DESCRIPTION = "error_description";
+    public const string FIELD_ERROR = "Error";
+    public const string FIELD_ERROR_DESCRIPTION = "error_description";
 
     /// <summary>
     /// Values for the default headers
     /// </summary>
-    private const string CACHE_CONTROL_NONE = "no-cache";
-    private const string USER_AGENT_BUNQ = "bunq-sdk-csharp/1.1.0.0";
-    private const string LANGUAGE_EN_US = "en_US";
-    private const string REGION_NL_NL = "nl_NL";
-    private const string GEOLOCATION_ZERO = "0 0 0 0 NL";
+    public const string CACHE_CONTROL_NONE = "no-cache";
+    public const string USER_AGENT_BUNQ = "bunq-sdk-csharp/1.1.0.0";
+    public const string LANGUAGE_EN_US = "en_US";
+    public const string REGION_NL_NL = "nl_NL";
+    public const string GEOLOCATION_ZERO = "0 0 0 0 NL";
 
     /// <summary>
     /// Delimiter between multiple header values.
     /// </summary>
-    private const string DELIMITER_HEADER_VALUE = ",";
+    public const string DELIMITER_HEADER_VALUE = ",";
 
     /// <summary>
     /// Delimiter between path and params in URI.

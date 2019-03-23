@@ -24,6 +24,8 @@ namespace Playground
         var context = new BunqContext(userStore);
 
         await context.Setup();
+
+        //context.Api.
       }
       catch (Exception e)
       {

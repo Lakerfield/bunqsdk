@@ -12,10 +12,12 @@ namespace Lakerfield.BunqSdk.Context
     public User UserStore { get; }
     public BunqHttpClient Client { get; set; }
 
+    public ApiContext Api { get; set; }
+
     public BunqContext(User userStore)
     {
       UserStore = userStore;
-      Client = new BunqHttpClient(UserStore.Environment);
+      Client = new BunqHttpClient(UserStore);
     }
 
 
@@ -27,7 +29,7 @@ namespace Lakerfield.BunqSdk.Context
         {
           case BunqEnvironment.Sandbox:
             UserStore.ApiKey = await GenerateNewSandboxUserApiKey();
-            await ApiContext.Create(UserStore, Client, Environment.MachineName);
+            Api = await ApiContext.Create(UserStore, Client, Environment.MachineName);
             break;
 
           case BunqEnvironment.Production:
@@ -36,13 +38,16 @@ namespace Lakerfield.BunqSdk.Context
         }
       }
 
+      Api = new ApiContext(UserStore, Client);
+
+
 
 
     }
 
     public async Task<string> GenerateNewSandboxUserApiKey()
     {
-      var client = new BunqHttpClient(UserStore.Environment);
+      var client = new BunqHttpClient(UserStore);
       var sandboxClient = client.SandboxUser();
 
       var apiKey = await sandboxClient.GetNewApiKey();

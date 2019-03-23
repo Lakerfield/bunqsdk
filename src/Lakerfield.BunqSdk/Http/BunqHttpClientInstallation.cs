@@ -36,28 +36,36 @@ namespace Lakerfield.BunqSdk.Http
     /// </summary>
     public async Task<BunqResponse> Create(ApiContext apiContext, string publicKeyClientString)
     {
-      var requestData = new ClientPublicKey()
+      try
       {
-        Value = publicKeyClientString
-      };
+        var requestData = new ClientPublicKey()
+        {
+          Value = publicKeyClientString
+        };
 
-      var request = new HttpRequestMessage(HttpMethod.Post, ENDPOINT_URL_POST)
+        var request = new HttpRequestMessage(HttpMethod.Post, ENDPOINT_URL_POST)
+        {
+          Content = new StringContent(BunqJsonConvert.SerializeObject(requestData), Encoding.UTF8, "application/json")
+        };
+
+        var response = await Client.BunqSendAsync(request);
+
+        var id = response.Get<Model.Id>();
+        var token = response.Get<Model.Token>();
+        var serverPublicKey = response.Get<Model.ServerPublicKey>();
+
+        //var requestBytes = GenerateRequestBodyBytes(publicKeyClientString);
+        //var apiClient = new ApiClient(apiContext);
+        //var responseRaw = apiClient.Post(ENDPOINT_URL_POST, requestBytes, new Dictionary<string, string>());
+
+        //return FromJsonArrayNested<Installation>(responseRaw);
+        return response;
+      }
+      catch (Exception e)
       {
-        Content = new StringContent(BunqJsonConvert.SerializeObject(requestData), Encoding.UTF8, "application/json")
-      };
-
-      var response = await Client.BunqSendAsync(request);
-
-      var id = response.Get<Model.Id>();
-      var token = response.Get<Model.Token>();
-      var serverPublicKey = response.Get<Model.ServerPublicKey>();
-
-      //var requestBytes = GenerateRequestBodyBytes(publicKeyClientString);
-      //var apiClient = new ApiClient(apiContext);
-      //var responseRaw = apiClient.Post(ENDPOINT_URL_POST, requestBytes, new Dictionary<string, string>());
-
-      //return FromJsonArrayNested<Installation>(responseRaw);
-      return response;
+        Console.WriteLine(e);
+        throw;
+      }
     }
 
   }
