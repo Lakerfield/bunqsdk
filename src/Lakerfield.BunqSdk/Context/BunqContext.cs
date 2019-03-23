@@ -1,48 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using Lakerfield.BunqSdk.Http;
+using Lakerfield.BunqSdk.Store;
 
 namespace Lakerfield.BunqSdk.Context
 {
   public class BunqContext
   {
-    public ApiEnvironmentType EnvironmentType { get; }
+    public User UserStore { get; }
+    public BunqHttpClient Client { get; set; }
 
-    public BunqContext(ApiEnvironmentType environmentType)
+    public BunqContext(User userStore)
     {
-      EnvironmentType = environmentType;
+      UserStore = userStore;
+      Client = new BunqHttpClient(UserStore.Environment);
     }
-
-    
 
 
     public async Task Setup()
     {
-      await GenerateNewSandboxUser();
+      if (string.IsNullOrWhiteSpace(UserStore.ApiKey))
+      {
+        switch (UserStore.Environment)
+        {
+          case BunqEnvironment.Sandbox:
+            UserStore.ApiKey = await GenerateNewSandboxUserApiKey();
+            await ApiContext.Create(UserStore, Client, Environment.MachineName);
+            break;
+
+          case BunqEnvironment.Production:
+          default:
+            throw new ArgumentOutOfRangeException("ApiKey is missing");
+        }
+      }
+
+
+
     }
 
-
-
-    //private SandboxUser GenerateNewSandboxUser()
-    public async Task GenerateNewSandboxUser()
+    public async Task<string> GenerateNewSandboxUserApiKey()
     {
-      //var httpClient = new HttpClient();
-      var httpClient = new BunqHttpClient(EnvironmentType);
-      httpClient.DefaultRequestHeaders.Add("X-Bunq-Client-Request-Id", "unique");
-      httpClient.DefaultRequestHeaders.Add("Cache-Control", "no");
-      httpClient.DefaultRequestHeaders.Add("X-Bunq-Geolocation", "0 0 0 0 NL");
-      httpClient.DefaultRequestHeaders.Add("X-Bunq-Language", "en_US");
-      httpClient.DefaultRequestHeaders.Add("X-Bunq-Region", "en_US");
-      httpClient.DefaultRequestHeaders.Add("User-Agent", "hoi");
+      var client = new BunqHttpClient(UserStore.Environment);
+      var sandboxClient = client.SandboxUser();
 
-      var response = await httpClient.PostAsync("https://sandbox.bunq.com/v1/sandbox-user", null);
-
-      //var responseString = requestTask.Result.Content.ReadAsStringAsync().Result;
-      //var responseJson = BunqJsonConvert.DeserializeObject<JObject>(responseString);
-      //return BunqJsonConvert.DeserializeObject<SandboxUser>(responseJson.First.First.First.First.First.ToString());
+      var apiKey = await sandboxClient.GetNewApiKey();
+      return apiKey.Value;
     }
 
   }

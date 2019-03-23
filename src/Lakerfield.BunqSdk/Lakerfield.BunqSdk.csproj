@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <Folder Include="Model\Core\" />
+    <Folder Include="Model\Generated\Endpoint\" />
     <Folder Include="Model\Generated\Object\" />
   </ItemGroup>
 

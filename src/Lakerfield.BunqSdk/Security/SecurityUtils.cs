@@ -7,9 +7,10 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using Bunq.Sdk.Context;
+//using Bunq.Sdk.Context;
 using Bunq.Sdk.Exception;
-using Bunq.Sdk.Http;
+using Lakerfield.BunqSdk.Context;
+using Lakerfield.BunqSdk.Http;
 
 namespace Bunq.Sdk.Security
 {
@@ -132,8 +133,8 @@ namespace Bunq.Sdk.Security
             return GenerateHeadersSortedString(
                 requestMessage.Headers.Where(x =>
                     x.Key.StartsWith(HEADER_NAME_PREFIX_X_BUNQ) ||
-                    x.Key.Equals(ApiClient.HEADER_CACHE_CONTROL) ||
-                    x.Key.Equals(ApiClient.HEADER_USER_AGENT)
+                    x.Key.Equals(BunqHeaders.HEADER_CACHE_CONTROL) ||
+                    x.Key.Equals(BunqHeaders.HEADER_USER_AGENT)
                 )
             );
         }
@@ -271,8 +272,9 @@ namespace Bunq.Sdk.Security
         private static void AddHeaderEncryptionKey(ApiContext apiContext, IDictionary<string, string> headers,
             SymmetricAlgorithm aes)
         {
-            var keyEncrypted = apiContext.InstallationContext.PublicKeyServer.Encrypt(aes.Key, BUNQ_PADDING_MODE_KEY);
-            headers.Add(HEADER_CLIENT_ENCRYPTION_KEY, Convert.ToBase64String(keyEncrypted));
+            throw new NotImplementedException();
+            //var keyEncrypted = apiContext.InstallationContext.PublicKeyServer.Encrypt(aes.Key, BUNQ_PADDING_MODE_KEY);
+            //headers.Add(HEADER_CLIENT_ENCRYPTION_KEY, Convert.ToBase64String(keyEncrypted));
         }
 
         private static void AddHeaderEncryptionIv(IDictionary<string, string> headers, SymmetricAlgorithm aes)
