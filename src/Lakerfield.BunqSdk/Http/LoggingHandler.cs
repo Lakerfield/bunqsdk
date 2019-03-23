@@ -10,6 +10,8 @@ namespace Lakerfield.BunqSdk.Http
 {
   public class LoggingHandler : DelegatingHandler
   {
+    //https://stackoverflow.com/questions/18924996/logging-request-response-messages-when-using-httpclient
+
     public LoggingHandler(HttpMessageHandler innerHandler)
       : base(innerHandler)
     {
@@ -19,7 +21,7 @@ namespace Lakerfield.BunqSdk.Http
     {
       var now = DateTime.Now;
 
-      using (var logFile = File.CreateText($"log-{now:yyyy-MM-dd-HHmm.ss}.txt"))
+      using (var logFile = File.CreateText($"log-{now:yyyy-MM-dd-HHmm.ss.fff}.txt"))
       {
         logFile.WriteLine("Request:");
         logFile.WriteLine(request.ToString());
