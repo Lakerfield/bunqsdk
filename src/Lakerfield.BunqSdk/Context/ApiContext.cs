@@ -40,8 +40,8 @@ namespace Lakerfield.BunqSdk.Context
     {
       var keyPairClient = SecurityUtils.GenerateKeyPair();
       var publicKeyFormattedString = SecurityUtils.GetPublicKeyFormattedString(keyPairClient);
-      //var installationResponse = Installation.Create(this, publicKeyFormattedString);
-      //InstallationContext = new InstallationContext(installationResponse.Value, keyPairClient);
+
+      UserStore.Installation.ClientKeyPair = keyPairClient;
 
       var installationClient = Client.Installation();
 
@@ -49,6 +49,9 @@ namespace Lakerfield.BunqSdk.Context
 
       var sessionToken = result.Get<Token>();
       var serverPublicKey = result.Get<ServerPublicKey>();
+
+      UserStore.Installation.Token = sessionToken.Value;
+      UserStore.Installation.ServerPublicKey = SecurityUtils.CreatePublicKeyFromPublicKeyFormattedString(serverPublicKey.Value);
 
       InstallationContext = new InstallationContext(sessionToken, serverPublicKey, keyPairClient);
     }

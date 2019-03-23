@@ -33,11 +33,11 @@ namespace Lakerfield.BunqSdk.Json
     /// <summary>Serializes the specified object to a JSON string.</summary>
     /// <param name="value">The object to serialize.</param>
     /// <returns>A JSON string representation of the object.</returns>
-    public static string SerializeObject(object value)
+    public static string SerializeObject(object value, Formatting formatting = Formatting.None)
     {
       Initialize();
 
-      return JsonConvert.SerializeObject(value);
+      return JsonConvert.SerializeObject(value, formatting);
     }
 
     /// <summary>Deserializes the JSON to the specified .NET type.</summary>

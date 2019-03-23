@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Lakerfield.BunqSdk.Store;
 //using Bunq.Sdk.Context;
 //using Bunq.Sdk.Http;
 //using Bunq.Sdk.Model.Core;
@@ -32,6 +33,9 @@ namespace Lakerfield.BunqSdk.Json
       RegisterConverter(typeof(float?), new NonIntegerNumberConverter());
       //RegisterConverter(typeof(Pagination), new PaginationConverter());
       //RegisterConverter(typeof(IAnchorObjectInterface), new AnchorObjectConverter());
+
+      RegisterConverter(typeof(UserInstallation), new UserInstallationConverter());
+
 
       if (typesToExclude == null)
       {

@@ -177,6 +177,9 @@ namespace Bunq.Sdk.Security
         /// </summary>
         public static string GetPublicKeyFormattedString(RSA keyPair)
         {
+            if (keyPair == null)
+                return string.Empty;
+
             var publicKey = keyPair.ExportParameters(false);
             var publicKeyBytes = RsaKeyUtils.PublicKeyToX509(publicKey);
 
@@ -189,6 +192,9 @@ namespace Bunq.Sdk.Security
         /// </summary>
         public static string GetPrivateKeyFormattedString(RSA keyPair)
         {
+            if (keyPair == null)
+                return string.Empty;
+
             try
             {
                 var privateKey = keyPair.ExportParameters(true);
@@ -207,6 +213,9 @@ namespace Bunq.Sdk.Security
         /// </summary>
         public static RSA CreateKeyPairFromPrivateKeyFormattedString(string privateKeyString)
         {
+            if (string.IsNullOrWhiteSpace(privateKeyString))
+                return null;
+
             var privateKeyStringTrimmed = privateKeyString
                 .Replace(PRIVATE_KEY_START, string.Empty)
                 .Replace(PRIVATE_KEY_END, string.Empty);
@@ -219,6 +228,9 @@ namespace Bunq.Sdk.Security
         /// </summary>
         public static RSA CreatePublicKeyFromPublicKeyFormattedString(string publicKeyString)
         {
+            if (string.IsNullOrWhiteSpace(publicKeyString))
+                return null;
+
             var publicKeyStringTrimmed = publicKeyString
                 .Replace(PUBLIC_KEY_START, string.Empty)
                 .Replace(PUBLIC_KEY_END, string.Empty);

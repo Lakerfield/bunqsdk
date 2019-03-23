@@ -13,7 +13,7 @@ namespace Lakerfield.BunqSdk.Context
     public RSA KeyPairClient { get; private set; }
     public RSA PublicKeyServer { get; private set; }
 
-    internal InstallationContext(Token sessionToken,  ServerPublicKey serverPublicKey, RSA keyPairClient) :
+    internal InstallationContext(Token sessionToken, ServerPublicKey serverPublicKey, RSA keyPairClient) :
       this(sessionToken.Value, keyPairClient,
         SecurityUtils.CreatePublicKeyFromPublicKeyFormattedString(serverPublicKey.Value))
     {
