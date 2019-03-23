@@ -250,11 +250,11 @@ namespace Lakerfield.BunqSdk.Model
     [JsonProperty(PropertyName = "display_name")]
     public string DisplayName { get; set; }
 
-    /// <summary>
-    /// The aliases of the account.
-    /// </summary>
-    [JsonProperty(PropertyName = "alias")]
-    public List<Pointer> Alias { get; set; }
+    ///// <summary>
+    ///// The aliases of the account.
+    ///// </summary>
+    //[JsonProperty(PropertyName = "alias")]
+    //public List<Pointer> Alias { get; set; }
 
     /// <summary>
     /// The type of business entity.
@@ -451,11 +451,11 @@ namespace Lakerfield.BunqSdk.Model
     [JsonProperty(PropertyName = "display_name")]
     public string DisplayName { get; set; }
 
-    /// <summary>
-    /// The aliases of the account.
-    /// </summary>
-    [JsonProperty(PropertyName = "alias")]
-    public List<Pointer> Alias { get; set; }
+    ///// <summary>
+    ///// The aliases of the account.
+    ///// </summary>
+    //[JsonProperty(PropertyName = "alias")]
+    //public List<Pointer> Alias { get; set; }
 
     /// <summary>
     /// The type of business entity.
