@@ -24,8 +24,7 @@ namespace Lakerfield.BunqSdk.Security
     /// Constants for formatting the request textual representation for signing.
     /// </summary>
     private const string NEWLINE = "\n";
-    //private const string FORMAT_METHOD_AND_ENDPOINT_STRING = "{0} /v1/{1}";
-    private const string FORMAT_METHOD_AND_ENDPOINT_STRING = "{0} {1}";
+    private const string FORMAT_METHOD_AND_ENDPOINT_STRING = "{0} /v1/{1}";
     private const string HEADER_NAME_PREFIX_X_BUNQ = "X-Bunq-";
     private const string DELIMITER_HEADER_VALUE = ",";
     private const string FORMAT_HEADER_STRING = "{0}: {1}";

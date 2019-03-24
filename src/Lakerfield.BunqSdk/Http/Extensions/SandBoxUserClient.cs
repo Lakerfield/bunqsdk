@@ -12,7 +12,7 @@ namespace Lakerfield.BunqSdk.Http
     /// <summary>
     /// Endpoint name.
     /// </summary>
-    private const string ENDPOINT_URL_POST = "/v1/sandbox-user";
+    private const string ENDPOINT_URL_POST = "sandbox-user";
     
     public BunqHttpClient Client { get; }
 

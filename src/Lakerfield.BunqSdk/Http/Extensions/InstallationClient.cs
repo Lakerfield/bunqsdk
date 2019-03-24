@@ -14,7 +14,7 @@ namespace Lakerfield.BunqSdk.Http
     /// <summary>
     /// Endpoint name.
     /// </summary>
-    private const string ENDPOINT_URL_POST = "/v1/installation";
+    private const string ENDPOINT_URL_POST = "installation";
 
     public BunqHttpClient Client { get; }
 

@@ -20,7 +20,7 @@
 - [x] Initial cleanup after hackathon
 - [x] Generate models
 - [x] Add license
-- [ ] Change endpoint urls
+- [x] Change endpoint urls
 - [ ] Change string to native types
 - [ ] Implement api wrappers
 - [ ] Refactor

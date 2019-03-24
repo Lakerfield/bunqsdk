@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Lakerfield.BunqSdk;
 using Lakerfield.BunqSdk.Context;
 using Lakerfield.BunqSdk.Http;
+using Lakerfield.BunqSdk.Model;
 using Lakerfield.BunqSdk.Store;
 
 namespace Playground
@@ -21,9 +22,12 @@ namespace Playground
         var userStore = store.GetUser(BunqEnvironment.Sandbox);
         var context = new BunqContext(userStore);
 
-        await context.Setup(fastValidation: true);
+        await context.Setup(fastValidation: false);
 
         var response = await context.Api.Client.User().Get();
+
+        var userPerson = response.Get<UserPerson>();
+        Console.WriteLine($"Connect to {userPerson.FirstName} {userPerson.MiddleName} {userPerson.LastName} ({userPerson.DisplayName})");
       }
       catch (Exception e)
       {

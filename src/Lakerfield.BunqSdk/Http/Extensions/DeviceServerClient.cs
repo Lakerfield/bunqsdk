@@ -14,7 +14,7 @@ namespace Lakerfield.BunqSdk.Http
     /// <summary>
     /// Endpoint name.
     /// </summary>
-    private const string ENDPOINT_URL_POST = "/v1/device-server";
+    private const string ENDPOINT_URL_POST = "device-server";
     
     public BunqHttpClient Client { get; }
 
