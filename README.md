@@ -19,7 +19,9 @@
 - [x] Present @ hackathon
 - [x] Initial cleanup after hackathon
 - [x] Generate models
+- [x] Add license
 - [ ] Change endpoint urls
+- [ ] Change string to native types
 - [ ] Implement api wrappers
 - [ ] Refactor
 - [ ] Pagination
