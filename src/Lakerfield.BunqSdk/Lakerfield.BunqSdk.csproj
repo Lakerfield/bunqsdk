@@ -5,13 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <Compile Remove="Model\Core\**" />
+    <Compile Remove="Model\Generated\Object\**" />
+    <EmbeddedResource Remove="Model\Core\**" />
+    <EmbeddedResource Remove="Model\Generated\Object\**" />
+    <None Remove="Model\Core\**" />
+    <None Remove="Model\Generated\Object\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Model\Core\" />
-    <Folder Include="Model\Generated\Endpoint\" />
-    <Folder Include="Model\Generated\Object\" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
 
 </Project>

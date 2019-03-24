@@ -177,7 +177,8 @@ namespace Lakerfield.BunqSdk.Http
 
     private static void AssertResponseSuccess(HttpResponseMessage responseMessage)
     {
-      if (responseMessage.IsSuccessStatusCode) return;
+      if (responseMessage.IsSuccessStatusCode)
+        return;
 
       var responseCode = (int)responseMessage.StatusCode;
       var responseBody = responseMessage.Content.ReadAsStringAsync().Result;
@@ -192,17 +193,12 @@ namespace Lakerfield.BunqSdk.Http
     private static string DetermineResponseIdByAllHeader(HttpHeaders allHeader)
     {
       if (allHeader.Contains(BunqHeaders.HEADER_RESPONSE_ID_UPPER_CASE))
-      {
         return allHeader.GetValues(BunqHeaders.HEADER_RESPONSE_ID_UPPER_CASE).First();
-      }
-      else if (allHeader.Contains(BunqHeaders.HEADER_RESPONSE_ID_LOWER_CASE))
-      {
+
+      if (allHeader.Contains(BunqHeaders.HEADER_RESPONSE_ID_LOWER_CASE))
         return allHeader.GetValues(BunqHeaders.HEADER_RESPONSE_ID_LOWER_CASE).First();
-      }
-      else
-      {
-        return BunqHeaders.ERROR_COULD_NOT_DETERMINE_RESPONSE_ID_HEADER;
-      }
+
+      return BunqHeaders.ERROR_COULD_NOT_DETERMINE_RESPONSE_ID_HEADER;
     }
 
     private static ApiException CreateApiExceptionRequestUnsuccessful(
@@ -252,11 +248,8 @@ namespace Lakerfield.BunqSdk.Http
     private void ValidateResponse(HttpResponseMessage responseMessage)
     {
       var serverPublicKey = UserStore.Installation.ServerPublicKey;
-
       if (serverPublicKey != null)
-      {
         SecurityUtils.ValidateResponse(responseMessage, serverPublicKey);
-      }
     }
 
 

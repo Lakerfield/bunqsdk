@@ -147,17 +147,17 @@ namespace Lakerfield.BunqSdk.Context
       if (userCompany != null && userApiKey == null && userPerson == null)
       {
         //Debug.Assert(sessionServer.UserCompany.Id != null, ErrorSessionserverUsercompanyIdNull);
-        return userCompany.Id.Value;
+        return userCompany.Id;
       }
       else if (userPerson != null && userApiKey == null && userCompany == null)
       {
         //Debug.Assert(sessionServer.UserPerson.Id != null, ErrorsessionserverUserpersonIdNull);
-        return userPerson.Id.Value;
+        return userPerson.Id;
       }
       else if (userApiKey != null && userCompany == null && userPerson == null)
       {
         //Debug.Assert(sessionServer.UserApiKey.Id != null, ErrorSessionserverUserapikeyIdNull);
-        return userApiKey.Id.Value;
+        return userApiKey.Id;
       }
       else
       {
@@ -173,21 +173,22 @@ namespace Lakerfield.BunqSdk.Context
 
       if (userApiKey != null && userCompany == null && userPerson == null)
       {
-        throw new NotImplementedException();
-        //return GetSesisonTimeOutForUser(userApiKey.RequestedByUser.GetReferencedObject());
-      }
-      else if (userCompany != null && userApiKey == null && userPerson == null)
-      {
-        return userCompany.SessionTimeout.Value;
-      }
-      else if (userPerson != null && userApiKey == null && userCompany == null)
-      {
-        return userPerson.SessionTimeout.Value;
-      }
-      else
-      {
+        if (userApiKey.RequestedByUser.Usercompany != null)
+          return userApiKey.RequestedByUser.Usercompany.SessionTimeout;
+
+        if (userApiKey.RequestedByUser.Userperson != null)
+          return userApiKey.RequestedByUser.Userperson.SessionTimeout;
+
         throw new BunqException("ErrorCouldNotDetermineSessionTimeout");
       }
+
+      if (userCompany != null && userApiKey == null && userPerson == null)
+        return userCompany.SessionTimeout;
+
+      if (userPerson != null && userApiKey == null && userCompany == null)
+        return userPerson.SessionTimeout;
+
+      throw new BunqException("ErrorCouldNotDetermineSessionTimeout");
     }
 
 

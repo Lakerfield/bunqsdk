@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Lakerfield.BunqSdk;
 using Lakerfield.BunqSdk.Context;
+using Lakerfield.BunqSdk.Http;
 using Lakerfield.BunqSdk.Store;
 
 namespace Playground
@@ -22,7 +23,7 @@ namespace Playground
 
         await context.Setup(fastValidation: true);
 
-        //context.Api.
+        var response = await context.Api.Client.User().Get();
       }
       catch (Exception e)
       {
