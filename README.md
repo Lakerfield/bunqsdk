@@ -17,8 +17,9 @@
 - [x] Fix bugs
 - [x] Handle exceptions
 - [x] Present @ hackathon
-- [ ] Cleanup after hackathon
-- [ ] Generate models
+- [x] Initial cleanup after hackathon
+- [x] Generate models
+- [ ] Change endpoint urls
 - [ ] Implement api wrappers
 - [ ] Refactor
 - [ ] Pagination
