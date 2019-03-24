@@ -8,7 +8,7 @@ using Lakerfield.BunqSdk.Model;
 
 namespace Lakerfield.BunqSdk.Http
 {
-  public class BunqHttpClientSessionServer
+  public class SessionServerClient
   {
     /// <summary>
     /// Endpoint name.
@@ -17,7 +17,7 @@ namespace Lakerfield.BunqSdk.Http
     
     public BunqHttpClient Client { get; }
 
-    public BunqHttpClientSessionServer(BunqHttpClient client)
+    public SessionServerClient(BunqHttpClient client)
     {
       Client = client;
     }
@@ -51,11 +51,11 @@ namespace Lakerfield.BunqSdk.Http
     }
   }
 
-  public static class BunqHttpClientSessionServerExtensions
+  public static class SessionServerClientExtensions
   {
-    public static BunqHttpClientSessionServer SessionServer(this BunqHttpClient client)
+    public static SessionServerClient SessionServer(this BunqHttpClient client)
     {
-      return new BunqHttpClientSessionServer(client);
+      return new SessionServerClient(client);
     }
   }
 

@@ -9,7 +9,7 @@ using Lakerfield.BunqSdk.Model;
 
 namespace Lakerfield.BunqSdk.Http
 {
-  public class BunqHttpClientDeviceServer
+  public class DeviceServerClient
   {
     /// <summary>
     /// Endpoint name.
@@ -18,7 +18,7 @@ namespace Lakerfield.BunqSdk.Http
     
     public BunqHttpClient Client { get; }
 
-    public BunqHttpClientDeviceServer(BunqHttpClient client)
+    public DeviceServerClient(BunqHttpClient client)
     {
       Client = client;
     }
@@ -46,11 +46,11 @@ namespace Lakerfield.BunqSdk.Http
 
   }
 
-  public static class BunqHttpClientDeviceServerExtensions
+  public static class DeviceServerClientExtensions
   {
-    public static BunqHttpClientDeviceServer DeviceServer(this BunqHttpClient client)
+    public static DeviceServerClient DeviceServer(this BunqHttpClient client)
     {
-      return new BunqHttpClientDeviceServer(client);
+      return new DeviceServerClient(client);
     }
   }
 

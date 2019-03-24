@@ -7,7 +7,7 @@ using Lakerfield.BunqSdk.Model;
 
 namespace Lakerfield.BunqSdk.Http
 {
-  public class BunqHttpClientSandBoxUser
+  public class SandBoxUserClient
   {
     /// <summary>
     /// Endpoint name.
@@ -16,7 +16,7 @@ namespace Lakerfield.BunqSdk.Http
     
     public BunqHttpClient Client { get; }
 
-    public BunqHttpClientSandBoxUser(BunqHttpClient client)
+    public SandBoxUserClient(BunqHttpClient client)
     {
       Client = client;
     }
@@ -43,11 +43,11 @@ namespace Lakerfield.BunqSdk.Http
 
   }
 
-  public static class BunqHttpClientSandBoxUserExtensions
+  public static class SandBoxUserClientExtensions
   {
-    public static BunqHttpClientSandBoxUser SandboxUser(this BunqHttpClient client)
+    public static SandBoxUserClient SandboxUser(this BunqHttpClient client)
     {
-      return new BunqHttpClientSandBoxUser(client);
+      return new SandBoxUserClient(client);
     }
   }
 
