@@ -22,31 +22,26 @@ namespace Lakerfield.BunqSdk.Context
     }
 
 
-    public async Task Setup()
+    public async Task Setup(bool fastValidation = false)
     {
-      if (string.IsNullOrWhiteSpace(UserStore.ApiKey))
-      {
-        switch (UserStore.Environment)
-        {
-          case BunqEnvironment.Sandbox:
-            UserStore.ApiKey = await GenerateNewSandboxUserApiKey();
-            Api = await ApiContext.Create(UserStore, Client, Environment.MachineName);
-            break;
+      if (string.IsNullOrWhiteSpace(UserStore.ApiKey) && UserStore.Environment == BunqEnvironment.Sandbox)
+        UserStore.ApiKey = await RequestNewSandboxApiKey();
 
-          case BunqEnvironment.Production:
-          default:
-            throw new BunqException("ApiKey is missing for production");
-        }
-      }
+      if (string.IsNullOrWhiteSpace(UserStore.ApiKey))
+        throw new BunqException("ApiKey is missing");
 
       Api = new ApiContext(UserStore, Client);
 
+      if (!await Api.IsInstallationValid(fastValidation))
+        await Api.InitializeInstallation();
 
+      if (!await Api.IsDeviceValid(fastValidation))
+        await Api.RegisterDevice(Environment.MachineName, new List<string>());
 
-
+      await Api.EnsureSessionActive();
     }
 
-    public async Task<string> GenerateNewSandboxUserApiKey()
+    public async Task<string> RequestNewSandboxApiKey()
     {
       var client = new BunqHttpClient(UserStore);
       var sandboxClient = client.SandboxUser();

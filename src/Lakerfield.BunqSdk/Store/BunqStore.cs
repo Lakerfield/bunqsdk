@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Lakerfield.BunqSdk.Json;
 
 namespace Lakerfield.BunqSdk.Store
@@ -55,7 +56,9 @@ namespace Lakerfield.BunqSdk.Store
 
   public class User
   {
+    [JsonConverter(typeof(StringEnumConverter))]
     public BunqEnvironment Environment { get; set; }
+
     public string ApiKey { get; set; }
 
     private UserInstallation _installation;
@@ -63,6 +66,13 @@ namespace Lakerfield.BunqSdk.Store
     {
       get { return _installation ?? (_installation = new UserInstallation()); }
       set { _installation = value; }
+    }
+
+    private UserDevice _device;
+    public UserDevice Device
+    {
+      get { return _device ?? (_device = new UserDevice()); }
+      set { _device = value; }
     }
 
     private UserSession _session;
@@ -75,16 +85,26 @@ namespace Lakerfield.BunqSdk.Store
 
   public class UserInstallation
   {
+    public int Id { get; set; }
     public string Token { get; set; }
     public RSA ClientKeyPair { get; set; }
     public RSA ServerPublicKey { get; set; }
   }
 
+  public class UserDevice
+  {
+    public int Id { get; set; }
+    public string Description { get; set; }
+    public string Ip { get; set; }
+    public string Status { get; set; }
+  }
+
   public class UserSession
   {
+    public int Id { get; set; }
+    public int UserId { get; set; }
     public string Token { get; set; }
     public DateTime ExpiryTime { get; set; }
-    public int UserId { get; set; }
   }
 
 

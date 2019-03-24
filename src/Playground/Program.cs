@@ -12,7 +12,7 @@ namespace Playground
   {
     static async Task Main(string[] args)
     {
-      Console.WriteLine("Hello World!");
+      Console.WriteLine("Hello World of The Free!");
 
       var store = await BunqStore.Load();
       try
@@ -20,7 +20,7 @@ namespace Playground
         var userStore = store.GetUser(BunqEnvironment.Sandbox);
         var context = new BunqContext(userStore);
 
-        await context.Setup();
+        await context.Setup(fastValidation: true);
 
         //context.Api.
       }

@@ -34,7 +34,7 @@ namespace Lakerfield.BunqSdk.Http
     /// "X-Bunq-Client-Authentication" header for the creation of a DeviceServer
     /// and SessionServer.
     /// </summary>
-    public async Task<BunqResponse> Create(ApiContext apiContext, string publicKeyClientString)
+    public async Task<BunqResponse> Create(string publicKeyClientString)
     {
       try
       {
@@ -50,15 +50,10 @@ namespace Lakerfield.BunqSdk.Http
 
         var response = await Client.BunqSendAsync(request);
 
-        var id = response.Get<Model.Id>();
-        var token = response.Get<Model.Token>();
-        var serverPublicKey = response.Get<Model.ServerPublicKey>();
+        //var id = response.Get<Model.Id>();
+        //var token = response.Get<Model.Token>();
+        //var serverPublicKey = response.Get<Model.ServerPublicKey>();
 
-        //var requestBytes = GenerateRequestBodyBytes(publicKeyClientString);
-        //var apiClient = new ApiClient(apiContext);
-        //var responseRaw = apiClient.Post(ENDPOINT_URL_POST, requestBytes, new Dictionary<string, string>());
-
-        //return FromJsonArrayNested<Installation>(responseRaw);
         return response;
       }
       catch (Exception e)
@@ -68,6 +63,24 @@ namespace Lakerfield.BunqSdk.Http
       }
     }
 
+    public async Task<BunqResponse> Get()
+    {
+      try
+      {
+        var request = new HttpRequestMessage(HttpMethod.Get, ENDPOINT_URL_POST);
+
+        var response = await Client.BunqSendAsync(request);
+
+        var id = response.Get<Model.Id>();
+
+        return response;
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine(e);
+        throw;
+      }
+    }
   }
 
   public static class BunqHttpClientInstallationExtensions

@@ -21,12 +21,18 @@ namespace Lakerfield.BunqSdk.Http
     /// </summary>
     private const string DEVICE_SERVER_URL = "device-server";
     private const string INSTALLATION_URL = "installation";
+    private const string SANDBOX_USER_URL = "sandbox-user";
     private const string SESSION_SERVER_URL = "session-server";
     public static readonly string[] URIS_NOT_REQUIRING_ACTIVE_SESSION = new string[]
     {
-            DEVICE_SERVER_URL,
-            INSTALLATION_URL,
-            SESSION_SERVER_URL
+      DEVICE_SERVER_URL,
+      INSTALLATION_URL,
+      SESSION_SERVER_URL
+    };
+
+    public static readonly string[] URIS_NOT_REQUIRING_SIGNING = new string[]
+    {
+      SANDBOX_USER_URL,
     };
 
     /// <summary>

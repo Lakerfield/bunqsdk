@@ -55,13 +55,16 @@ namespace Lakerfield.BunqSdk.Http
 
       SetDefaultHeaders(request);
       //SetHeaders(request, customHeaders);
-      SetSessionHeaders(request);
+      var needSigning = NeedsSigning(request.RequestUri);
+      if (needSigning)
+        SetSessionHeaders(request);
 
       //var responseMessage = client.SendAsync(requestMessage).Result;
       var response = await SendAsync(request);
 
       AssertResponseSuccess(response);
-      ValidateResponse(response);
+      if (needSigning)
+        ValidateResponse(response);
 
       var json = await response.Content.ReadAsStringAsync();
       //var json = Encoding.UTF8.GetString(responseRaw.BodyBytes);
@@ -152,6 +155,17 @@ namespace Lakerfield.BunqSdk.Http
     private bool NeedsSession(Uri uri)
     {
       foreach (var part in BunqHeaders.URIS_NOT_REQUIRING_ACTIVE_SESSION)
+      {
+        //TODO better
+        if (uri.ToString().Contains(part))
+          return false;
+      }
+      return true;
+    }
+
+    private bool NeedsSigning(Uri uri)
+    {
+      foreach (var part in BunqHeaders.URIS_NOT_REQUIRING_SIGNING)
       {
         //TODO better
         if (uri.ToString().Contains(part))

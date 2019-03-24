@@ -24,7 +24,7 @@ namespace Lakerfield.BunqSdk.Http
     }
 
 
-    public async Task<Id> Register(string description, string secret)
+    public async Task<BunqResponse> Register(string description, string secret)
     {
       var data = new DeviceServerInternal()
       {
@@ -40,9 +40,7 @@ namespace Lakerfield.BunqSdk.Http
 
       var response = await Client.BunqSendAsync(request);
 
-      var id = response.Get<Model.Id>();
-
-      return id;
+      return response;
     }
 
 

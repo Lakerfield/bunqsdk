@@ -15,9 +15,6 @@ namespace Lakerfield.BunqSdk.Context
     public User UserStore { get; }
     public BunqHttpClient Client { get; }
 
-    //public InstallationContext InstallationContext { get; private set; }
-    //public SessionContext SessionContext { get; private set; }
-
     /// <summary>
     /// Measure of any time unit when none of it is needed.
     /// </summary>
@@ -39,51 +36,81 @@ namespace Lakerfield.BunqSdk.Context
     private const int SESSION_ID_DUMMY = 0;
 
 
-    public ApiContext(User userStore, BunqHttpClient client)
+    internal ApiContext(User userStore, BunqHttpClient client)
     {
       UserStore = userStore;
       Client = client;
     }
 
-    public static async Task<ApiContext> Create(User userStore, BunqHttpClient client, string deviceDescription)
+    internal async Task<bool> IsInstallationValid(bool fastValidation)
     {
-      var apiContext = new ApiContext(userStore, client);
+      var installation = UserStore.Installation;
+      if (installation.ClientKeyPair == null ||
+          installation.ServerPublicKey == null ||
+          string.IsNullOrWhiteSpace(installation.Token))
+        return false;
 
-      await apiContext.InitializeInstallationContext();
+      if (fastValidation)
+        return true;
 
-      await apiContext.RegisterDevice(deviceDescription, new List<string>());
+      try
+      {
+        var installationClient = Client.Installation();
+        var result = await installationClient.Get();//UserStore.Installation.Id
 
-      await apiContext.InitializeSessionContext();
-
-      return apiContext;
+        return true;
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine(e);
+        return false;
+      }
     }
 
-
-    private async Task InitializeInstallationContext()
+    internal async Task InitializeInstallation()
     {
       var keyPairClient = SecurityUtils.GenerateKeyPair();
-      var publicKeyFormattedString = SecurityUtils.GetPublicKeyFormattedString(keyPairClient);
-
-      UserStore.Installation.ClientKeyPair = keyPairClient;
 
       var installationClient = Client.Installation();
+      var result = await installationClient.Create(SecurityUtils.GetPublicKeyFormattedString(keyPairClient));
 
-      var result = await installationClient.Create(this, publicKeyFormattedString);
-
+      var id = result.Get<Id>();
       var sessionToken = result.Get<Token>();
       var serverPublicKey = result.Get<ServerPublicKey>();
 
+      UserStore.Installation.ClientKeyPair = keyPairClient;
+      UserStore.Installation.Id = id.Value;
       UserStore.Installation.Token = sessionToken.Value;
       UserStore.Installation.ServerPublicKey = SecurityUtils.CreatePublicKeyFromPublicKeyFormattedString(serverPublicKey.Value);
-
-      //InstallationContext = new InstallationContext(sessionToken, serverPublicKey, keyPairClient);
     }
 
-    private async Task<Id> RegisterDevice(string deviceDescription, List<string> permittedIps)
+
+
+    internal async Task<bool> IsDeviceValid(bool fastValidation)
+    {
+      var device = UserStore.Device;
+      if (device.Id == 0)
+        return false;
+
+      if (fastValidation)
+        return true;
+
+      // get current device
+      //device.Description=;
+      //device.Status=;
+      //device.Ip=;
+
+      return true;
+    }
+
+    internal async Task<Id> RegisterDevice(string deviceDescription, List<string> permittedIps)
     {
       var deviceServerClient = Client.DeviceServer();
+      var result = await deviceServerClient.Register(deviceDescription, UserStore.ApiKey);
 
-      var id = await deviceServerClient.Register(deviceDescription, UserStore.ApiKey);
+      var id = result.Get<Model.Id>();
+
+      UserStore.Device.Id = id.Value;
 
       return id;
     }
@@ -96,7 +123,7 @@ namespace Lakerfield.BunqSdk.Context
     /// <summary>
     /// Create a new session and its data in a SessionContext.
     /// </summary>
-    private async Task InitializeSessionContext()
+    internal async Task InitializeSessionContext()
     {
       var sessionServerClient = Client.SessionServer();
 
@@ -105,11 +132,10 @@ namespace Lakerfield.BunqSdk.Context
       var id = result.Get<Model.Id>();
       var token = result.Get<Model.Token>();
 
+      UserStore.Session.Id = id.Value;
       UserStore.Session.UserId = GetUserId(result);
       UserStore.Session.Token = token.Value;
       UserStore.Session.ExpiryTime = DateTime.Now.AddSeconds(GetSessionTimeout(result));
-
-      //SessionContext = new SessionContext(SessionServer.Create(this).Value);
     }
 
     private static int GetUserId(BunqResponse result)
@@ -194,7 +220,6 @@ namespace Lakerfield.BunqSdk.Context
       var sessionServerClient = Client.SessionServer();
 
       await sessionServerClient.Delete(SESSION_ID_DUMMY);
-      //Session.Delete(SESSION_ID_DUMMY);
     }
 
     /// <summary>
@@ -203,14 +228,10 @@ namespace Lakerfield.BunqSdk.Context
     public async Task<bool> EnsureSessionActive()
     {
       if (IsSessionActive())
-      {
         return false;
-      }
 
       await ResetSession();
-
       return true;
-
     }
 
     public bool IsSessionActive()
