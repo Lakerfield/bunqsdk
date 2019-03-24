@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Lakerfield.BunqSdk.Exceptions;
 
 namespace Lakerfield.BunqSdk.Model
 {
@@ -25,7 +26,7 @@ namespace Lakerfield.BunqSdk.Model
 
       var attribute = typeof(T).GetCustomAttribute<BunqObjectAttribute>();
       if (attribute == null)
-        throw new Exception("Cannot find BunqObjectAttribute");
+        throw new BunqException("Cannot find BunqObjectAttribute");
 
       foreach (var token in _array)
       {

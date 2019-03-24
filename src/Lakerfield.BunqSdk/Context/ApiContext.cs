@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Bunq.Sdk.Exception;
-using Bunq.Sdk.Security;
+using Lakerfield.BunqSdk.Exceptions;
 using Lakerfield.BunqSdk.Http;
 using Lakerfield.BunqSdk.Model;
+using Lakerfield.BunqSdk.Security;
 using Lakerfield.BunqSdk.Store;
 
 namespace Lakerfield.BunqSdk.Context

@@ -5,8 +5,8 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Lakerfield.BunqSdk.Json;
 using Newtonsoft.Json;
+using Lakerfield.BunqSdk.Json;
 
 namespace Lakerfield.BunqSdk.Store
 {

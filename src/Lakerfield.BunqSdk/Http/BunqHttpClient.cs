@@ -5,14 +5,13 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Bunq.Sdk.Exception;
-using Bunq.Sdk.Security;
-using Lakerfield.BunqSdk.Context;
-using Lakerfield.BunqSdk.Json;
-using Lakerfield.BunqSdk.Model;
-using Lakerfield.BunqSdk.Store;
+using Lakerfield.BunqSdk.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Lakerfield.BunqSdk.Json;
+using Lakerfield.BunqSdk.Model;
+using Lakerfield.BunqSdk.Security;
+using Lakerfield.BunqSdk.Store;
 
 namespace Lakerfield.BunqSdk.Http
 {

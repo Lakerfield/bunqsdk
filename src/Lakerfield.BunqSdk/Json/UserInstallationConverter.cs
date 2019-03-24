@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Bunq.Sdk.Security;
-using Lakerfield.BunqSdk.Context;
-using Lakerfield.BunqSdk.Store;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Lakerfield.BunqSdk.Security;
+using Lakerfield.BunqSdk.Store;
 
 namespace Lakerfield.BunqSdk.Json
 {

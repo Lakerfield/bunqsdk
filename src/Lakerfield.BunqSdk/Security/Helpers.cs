@@ -23,77 +23,77 @@ THE SOFTWARE.
 using System;
 using System.IO;
 
-namespace Bunq.Sdk.Security
+namespace Lakerfield.BunqSdk.Security
 {
-    internal class Helpers
+  internal class Helpers
+  {
+    internal static bool CompareBytearrays(byte[] a, byte[] b)
     {
-        internal static bool CompareBytearrays(byte[] a, byte[] b)
-        {
-            if (a.Length != b.Length)
-                return false;
+      if (a.Length != b.Length)
+        return false;
 
-            var i = 0;
+      var i = 0;
 
-            foreach (var c in a)
-            {
-                if (c != b[i])
-                    return false;
-                i++;
-            }
+      foreach (var c in a)
+      {
+        if (c != b[i])
+          return false;
+        i++;
+      }
 
-            return true;
-        }
-
-        internal static byte[] AlignBytes(byte[] inputBytes, int alignSize)
-        {
-            var inputBytesSize = inputBytes.Length;
-
-            if (alignSize == -1 || inputBytesSize >= alignSize) return inputBytes;
-
-            var buf = new byte[alignSize];
-
-            for (var i = 0; i < inputBytesSize; ++i)
-            {
-                buf[i + (alignSize - inputBytesSize)] = inputBytes[i];
-            }
-
-            return buf;
-        }
-
-        internal static int DecodeIntegerSize(BinaryReader rd)
-        {
-            byte byteValue;
-            int count;
-
-            byteValue = rd.ReadByte();
-
-            if (byteValue != 0x02) return 0;
-
-            byteValue = rd.ReadByte();
-
-            switch (byteValue)
-            {
-                case 0x81:
-                    count = rd.ReadByte();
-                    break;
-                case 0x82:
-                    var hi = rd.ReadByte();
-                    var lo = rd.ReadByte();
-                    count = BitConverter.ToUInt16(new[] {lo, hi}, 0);
-                    break;
-                default:
-                    count = byteValue;
-                    break;
-            }
-
-            while (rd.ReadByte() == 0x00)
-            {
-                count -= 1;
-            }
-
-            rd.BaseStream.Seek(-1, SeekOrigin.Current);
-
-            return count;
-        }
+      return true;
     }
+
+    internal static byte[] AlignBytes(byte[] inputBytes, int alignSize)
+    {
+      var inputBytesSize = inputBytes.Length;
+
+      if (alignSize == -1 || inputBytesSize >= alignSize) return inputBytes;
+
+      var buf = new byte[alignSize];
+
+      for (var i = 0; i < inputBytesSize; ++i)
+      {
+        buf[i + (alignSize - inputBytesSize)] = inputBytes[i];
+      }
+
+      return buf;
+    }
+
+    internal static int DecodeIntegerSize(BinaryReader rd)
+    {
+      byte byteValue;
+      int count;
+
+      byteValue = rd.ReadByte();
+
+      if (byteValue != 0x02) return 0;
+
+      byteValue = rd.ReadByte();
+
+      switch (byteValue)
+      {
+        case 0x81:
+          count = rd.ReadByte();
+          break;
+        case 0x82:
+          var hi = rd.ReadByte();
+          var lo = rd.ReadByte();
+          count = BitConverter.ToUInt16(new[] { lo, hi }, 0);
+          break;
+        default:
+          count = byteValue;
+          break;
+      }
+
+      while (rd.ReadByte() == 0x00)
+      {
+        count -= 1;
+      }
+
+      rd.BaseStream.Seek(-1, SeekOrigin.Current);
+
+      return count;
+    }
+  }
 }

@@ -4,10 +4,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Lakerfield.BunqSdk;
 using Lakerfield.BunqSdk.Context;
-using Lakerfield.BunqSdk.Json;
-using Lakerfield.BunqSdk.Model;
 using Lakerfield.BunqSdk.Store;
-using Newtonsoft.Json.Linq;
 
 namespace Playground
 {

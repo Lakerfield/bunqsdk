@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Lakerfield.BunqSdk.Json;
 using Lakerfield.BunqSdk.Model;
-using Newtonsoft.Json;
 
 namespace Lakerfield.BunqSdk.Http
 {

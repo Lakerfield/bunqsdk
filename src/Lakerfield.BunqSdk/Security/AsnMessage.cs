@@ -20,32 +20,32 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-namespace Bunq.Sdk.Security
+namespace Lakerfield.BunqSdk.Security
 {
-    internal class AsnMessage
+  internal class AsnMessage
+  {
+    private readonly byte[] mOctets;
+    private readonly string mFormat;
+
+    internal int Length
     {
-        private readonly byte[] mOctets;
-        private readonly string mFormat;
-
-        internal int Length
-        {
-            get { return null == mOctets ? 0 : mOctets.Length; }
-        }
-
-        internal AsnMessage(byte[] octets, string format)
-        {
-            mOctets = octets;
-            mFormat = format;
-        }
-
-        internal byte[] GetBytes()
-        {
-            return mOctets ?? new byte[] { };
-        }
-
-        internal string GetFormat()
-        {
-            return mFormat;
-        }
+      get { return null == mOctets ? 0 : mOctets.Length; }
     }
+
+    internal AsnMessage(byte[] octets, string format)
+    {
+      mOctets = octets;
+      mFormat = format;
+    }
+
+    internal byte[] GetBytes()
+    {
+      return mOctets ?? new byte[] { };
+    }
+
+    internal string GetFormat()
+    {
+      return mFormat;
+    }
+  }
 }

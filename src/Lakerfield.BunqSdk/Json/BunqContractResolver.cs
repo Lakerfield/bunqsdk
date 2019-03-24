@@ -2,11 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using Lakerfield.BunqSdk.Store;
-//using Bunq.Sdk.Context;
-//using Bunq.Sdk.Http;
-//using Bunq.Sdk.Model.Core;
-//using Bunq.Sdk.Model.Generated.Endpoint;
-//using Bunq.Sdk.Model.Generated.Object;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;

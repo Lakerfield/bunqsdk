@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Lakerfield.BunqSdk.Exceptions;
 using Lakerfield.BunqSdk.Http;
 using Lakerfield.BunqSdk.Store;
 
@@ -34,7 +35,7 @@ namespace Lakerfield.BunqSdk.Context
 
           case BunqEnvironment.Production:
           default:
-            throw new ArgumentOutOfRangeException("ApiKey is missing");
+            throw new BunqException("ApiKey is missing for production");
         }
       }
 

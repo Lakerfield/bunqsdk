@@ -23,91 +23,91 @@ THE SOFTWARE.
 using System;
 using System.Diagnostics;
 
-namespace Bunq.Sdk.Security
+namespace Lakerfield.BunqSdk.Security
 {
-    internal class RsaParameterTraits
+  internal class RsaParameterTraits
+  {
+    private const double TOLERANCE = 0.000001;
+    internal int SizeMod { get; private set; }
+    internal int SizeExp { get; private set; }
+    internal int SizeD { get; private set; }
+    internal int SizeP { get; private set; }
+    internal int SizeQ { get; private set; }
+    internal int SizeDp { get; private set; }
+    internal int SizeDq { get; private set; }
+    internal int SizeInvQ { get; private set; }
+
+    internal RsaParameterTraits(int modulusLengthInBits)
     {
-        private const double TOLERANCE = 0.000001;
-        internal int SizeMod { get; private set; }
-        internal int SizeExp { get; private set; }
-        internal int SizeD { get; private set; }
-        internal int SizeP { get; private set; }
-        internal int SizeQ { get; private set; }
-        internal int SizeDp { get; private set; }
-        internal int SizeDq { get; private set; }
-        internal int SizeInvQ { get; private set; }
+      SizeInvQ = -1;
+      SizeDq = -1;
+      SizeDp = -1;
+      SizeQ = -1;
+      SizeP = -1;
+      SizeD = -1;
+      SizeExp = -1;
+      SizeMod = -1;
 
-        internal RsaParameterTraits(int modulusLengthInBits)
-        {
-            SizeInvQ = -1;
-            SizeDq = -1;
-            SizeDp = -1;
-            SizeQ = -1;
-            SizeP = -1;
-            SizeD = -1;
-            SizeExp = -1;
-            SizeMod = -1;
+      int assumedLength;
+      var logbase = Math.Log(modulusLengthInBits, 2);
 
-            int assumedLength;
-            var logbase = Math.Log(modulusLengthInBits, 2);
+      if (Math.Abs(logbase - (int)logbase) < TOLERANCE)
+      {
+        assumedLength = modulusLengthInBits;
+      }
+      else
+      {
+        assumedLength = (int)(logbase + 1.0);
+        assumedLength = (int)(Math.Pow(2, assumedLength));
+        Debug.Assert(false);
+      }
 
-            if (Math.Abs(logbase - (int) logbase) < TOLERANCE)
-            {
-                assumedLength = modulusLengthInBits;
-            }
-            else
-            {
-                assumedLength = (int) (logbase + 1.0);
-                assumedLength = (int) (Math.Pow(2, assumedLength));
-                Debug.Assert(false);
-            }
-
-            switch (assumedLength)
-            {
-                case 512:
-                    SizeMod = 0x40;
-                    SizeExp = -1;
-                    SizeD = 0x40;
-                    SizeP = 0x20;
-                    SizeQ = 0x20;
-                    SizeDp = 0x20;
-                    SizeDq = 0x20;
-                    SizeInvQ = 0x20;
-                    break;
-                case 1024:
-                    SizeMod = 0x80;
-                    SizeExp = -1;
-                    SizeD = 0x80;
-                    SizeP = 0x40;
-                    SizeQ = 0x40;
-                    SizeDp = 0x40;
-                    SizeDq = 0x40;
-                    SizeInvQ = 0x40;
-                    break;
-                case 2048:
-                    SizeMod = 0x100;
-                    SizeExp = -1;
-                    SizeD = 0x100;
-                    SizeP = 0x80;
-                    SizeQ = 0x80;
-                    SizeDp = 0x80;
-                    SizeDq = 0x80;
-                    SizeInvQ = 0x80;
-                    break;
-                case 4096:
-                    SizeMod = 0x200;
-                    SizeExp = -1;
-                    SizeD = 0x200;
-                    SizeP = 0x100;
-                    SizeQ = 0x100;
-                    SizeDp = 0x100;
-                    SizeDq = 0x100;
-                    SizeInvQ = 0x100;
-                    break;
-                default:
-                    Debug.Assert(false);
-                    break;
-            }
-        }
+      switch (assumedLength)
+      {
+        case 512:
+          SizeMod = 0x40;
+          SizeExp = -1;
+          SizeD = 0x40;
+          SizeP = 0x20;
+          SizeQ = 0x20;
+          SizeDp = 0x20;
+          SizeDq = 0x20;
+          SizeInvQ = 0x20;
+          break;
+        case 1024:
+          SizeMod = 0x80;
+          SizeExp = -1;
+          SizeD = 0x80;
+          SizeP = 0x40;
+          SizeQ = 0x40;
+          SizeDp = 0x40;
+          SizeDq = 0x40;
+          SizeInvQ = 0x40;
+          break;
+        case 2048:
+          SizeMod = 0x100;
+          SizeExp = -1;
+          SizeD = 0x100;
+          SizeP = 0x80;
+          SizeQ = 0x80;
+          SizeDp = 0x80;
+          SizeDq = 0x80;
+          SizeInvQ = 0x80;
+          break;
+        case 4096:
+          SizeMod = 0x200;
+          SizeExp = -1;
+          SizeD = 0x200;
+          SizeP = 0x100;
+          SizeQ = 0x100;
+          SizeDp = 0x100;
+          SizeDq = 0x100;
+          SizeInvQ = 0x100;
+          break;
+        default:
+          Debug.Assert(false);
+          break;
+      }
     }
+  }
 }
