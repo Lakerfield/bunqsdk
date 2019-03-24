@@ -55,7 +55,7 @@ namespace Lakerfield.BunqSdk.Http
     /// Values for the default headers
     /// </summary>
     public const string CACHE_CONTROL_NONE = "no-cache";
-    public const string USER_AGENT_BUNQ = "bunq-sdk-csharp/1.1.0.0";
+    public const string USER_AGENT_BUNQ = "lakerfield-bunqsdk/0.1.0.0";
     public const string LANGUAGE_EN_US = "en_US";
     public const string REGION_NL_NL = "nl_NL";
     public const string GEOLOCATION_ZERO = "0 0 0 0 NL";
