@@ -38,9 +38,9 @@ namespace Lakerfield.BunqSdk.Http
     {
       try
       {
-        var requestData = new ClientPublicKey()
+        var requestData = new Installation()
         {
-          Value = publicKeyClientString
+          ClientPublicKey = publicKeyClientString
         };
 
         var request = new HttpRequestMessage(HttpMethod.Post, ENDPOINT_URL_POST)
@@ -71,7 +71,7 @@ namespace Lakerfield.BunqSdk.Http
 
         var response = await Client.BunqSendAsync(request);
 
-        var id = response.Get<Model.Id>();
+        var id = response.Get<Model.BunqId>();
 
         return response;
       }

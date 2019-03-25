@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace Lakerfield.BunqSdk.Model
 {
-  [BunqObject("BunqId")]
+  [BunqObject("Id")]
   public class BunqId
   {
     /// <summary>

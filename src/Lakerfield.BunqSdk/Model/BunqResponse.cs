@@ -53,65 +53,6 @@ namespace Lakerfield.BunqSdk.Model
     public string Value { get; set; }
   }
 
-  [BunqObject("ClientPublicKey")]
-  public class ClientPublicKey
-  {
-    [JsonProperty(PropertyName = "client_public_key")]
-    public string Value { get; set; }
-  }
-
-  [BunqObject("Id")]
-  public class Id
-  {
-    [JsonProperty(PropertyName = "id")]
-    public int Value { get; set; }
-  }
-
-  [BunqObject("Token")]
-  public class Token
-  {
-    [JsonProperty(PropertyName = "id")]
-    public int Id { get; set; }
-
-    [JsonProperty(PropertyName = "created")]
-    public DateTime Created { get; set; }
-
-    [JsonProperty(PropertyName = "updated")]
-    public DateTime Updated { get; set; }
-
-    [JsonProperty(PropertyName = "token")]
-    public string Value { get; set; }
-  }
-
-  [BunqObject("ServerPublicKey")]
-  public class ServerPublicKey
-  {
-    [JsonProperty(PropertyName = "server_public_key")]
-    public string Value { get; set; }
-  }
-
-  public class DeviceServerInternal
-  {
-    [JsonProperty(PropertyName = "description")]
-    public string Description { get; set; }
-
-    [JsonProperty(PropertyName = "secret")]
-    public string Secret { get; set; }
-
-    private List<string> _permittedIps;
-    [JsonProperty(PropertyName = "permitted_ips")]
-    public List<string> PermittedIps
-    {
-      get { return _permittedIps ?? (_permittedIps = new List<string>()); }
-      set { _permittedIps = value; }
-    }
-  }
-
-  public class SessionServerInitialize
-  {
-    [JsonProperty(PropertyName = "secret")]
-    public string Secret { get; set; }
-  }
 
 
 

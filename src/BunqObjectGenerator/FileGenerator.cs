@@ -10,6 +10,13 @@ namespace BunqObjectGenerator
 {
   public class FileGenerator
   {
+    public static Dictionary<string, string> ResponseObjectNames = new Dictionary<string, string>()
+    {
+      {"InstallationServerPublicKey", "ServerPublicKey"},
+      {"InstallationToken", "Token"},
+      {"BunqId", "Id"},
+    };
+
     public DirectoryInfo TargetDirectory { get; }
 
     public FileGenerator(DirectoryInfo targetDirectory)
@@ -20,6 +27,7 @@ namespace BunqObjectGenerator
     public async Task GenerateObject(JProperty schemaProperty)
     {
       var objectName = schemaProperty.Name;
+      var bunqObjectName = GetBunqObjectName(objectName);
       var schema = (JObject)schemaProperty.Value;
 
       var schemaType = ((JValue)schema.GetValue("type")).Value.ToString();
@@ -51,7 +59,7 @@ namespace BunqObjectGenerator
         await writer.WriteLineAsync(@"");
         await writer.WriteLineAsync(@"namespace Lakerfield.BunqSdk.Model");
         await writer.WriteLineAsync(@"{");
-        await writer.WriteLineAsync($"  [BunqObject(\"{objectName}\")]");
+        await writer.WriteLineAsync($"  [BunqObject(\"{bunqObjectName}\")]");
         await writer.WriteLineAsync($"  public class {objectName}");
         await writer.WriteLineAsync(@"  {");
 
@@ -92,6 +100,13 @@ namespace BunqObjectGenerator
         await writer.WriteLineAsync(@"  }");
         await writer.WriteLineAsync(@"}");
       }
+    }
+
+    private string GetBunqObjectName(string name)
+    {
+      if (ResponseObjectNames.TryGetValue(name, out var result))
+        return result;
+      return name;
     }
 
     private string GetCSharpType(JObject details)

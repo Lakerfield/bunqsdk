@@ -25,7 +25,7 @@ namespace Lakerfield.BunqSdk.Http
 
     public async Task<BunqResponse> Initialize(string secret)
     {
-      var data = new SessionServerInitialize()
+      var data = new SessionServer()
       {
         Secret = secret,
       };
@@ -37,8 +37,8 @@ namespace Lakerfield.BunqSdk.Http
 
       var response = await Client.BunqSendAsync(request);
 
-      var id = response.Get<Model.Id>();
-      var token = response.Get<Model.Token>();
+      var id = response.Get<Model.BunqId>();
+      var token = response.Get<Model.InstallationToken>();
       var userPerson = response.Get<Model.UserPerson>();
 
       return response;

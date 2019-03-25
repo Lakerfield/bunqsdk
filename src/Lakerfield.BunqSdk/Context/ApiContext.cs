@@ -74,14 +74,14 @@ namespace Lakerfield.BunqSdk.Context
       var installationClient = Client.Installation();
       var result = await installationClient.Create(SecurityUtils.GetPublicKeyFormattedString(keyPairClient));
 
-      var id = result.Get<Id>();
-      var sessionToken = result.Get<Token>();
-      var serverPublicKey = result.Get<ServerPublicKey>();
+      var id = result.Get<BunqId>();
+      var sessionToken = result.Get<InstallationToken>();
+      var serverPublicKey = result.Get<InstallationServerPublicKey>();
 
       UserStore.Installation.ClientKeyPair = keyPairClient;
-      UserStore.Installation.Id = id.Value;
-      UserStore.Installation.Token = sessionToken.Value;
-      UserStore.Installation.ServerPublicKey = SecurityUtils.CreatePublicKeyFromPublicKeyFormattedString(serverPublicKey.Value);
+      UserStore.Installation.Id = id.Id;
+      UserStore.Installation.Token = sessionToken.Token;
+      UserStore.Installation.ServerPublicKey = SecurityUtils.CreatePublicKeyFromPublicKeyFormattedString(serverPublicKey.ServerPublicKey);
     }
 
 
@@ -103,14 +103,14 @@ namespace Lakerfield.BunqSdk.Context
       return true;
     }
 
-    internal async Task<Id> RegisterDevice(string deviceDescription, List<string> permittedIps)
+    internal async Task<BunqId> RegisterDevice(string deviceDescription, List<string> permittedIps)
     {
       var deviceServerClient = Client.DeviceServer();
       var result = await deviceServerClient.Register(deviceDescription, UserStore.ApiKey);
 
-      var id = result.Get<Model.Id>();
+      var id = result.Get<Model.BunqId>();
 
-      UserStore.Device.Id = id.Value;
+      UserStore.Device.Id = id.Id;
 
       return id;
     }
@@ -129,12 +129,12 @@ namespace Lakerfield.BunqSdk.Context
 
       var result = await sessionServerClient.Initialize(UserStore.ApiKey);
 
-      var id = result.Get<Model.Id>();
-      var token = result.Get<Model.Token>();
+      var id = result.Get<Model.BunqId>();
+      var token = result.Get<Model.InstallationToken>();
 
-      UserStore.Session.Id = id.Value;
+      UserStore.Session.Id = id.Id;
       UserStore.Session.UserId = GetUserId(result);
-      UserStore.Session.Token = token.Value;
+      UserStore.Session.Token = token.Token;
       UserStore.Session.ExpiryTime = DateTime.Now.AddSeconds(GetSessionTimeout(result));
     }
 

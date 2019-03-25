@@ -27,7 +27,7 @@ namespace Playground
         var response = await context.Api.Client.User().Get();
 
         var userPerson = response.Get<UserPerson>();
-        Console.WriteLine($"Connect to {userPerson.FirstName} {userPerson.MiddleName} {userPerson.LastName} ({userPerson.DisplayName})");
+        Console.WriteLine($"Current user {userPerson.FirstName} {userPerson.MiddleName} {userPerson.LastName} ({userPerson.DisplayName})");
       }
       catch (Exception e)
       {

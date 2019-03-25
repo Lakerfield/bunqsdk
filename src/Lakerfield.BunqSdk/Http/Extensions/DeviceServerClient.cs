@@ -26,7 +26,7 @@ namespace Lakerfield.BunqSdk.Http
 
     public async Task<BunqResponse> Register(string description, string secret)
     {
-      var data = new DeviceServerInternal()
+      var data = new DeviceServer()
       {
         Description = description,
         Secret = secret,

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace Lakerfield.BunqSdk.Model
 {
-  [BunqObject("InstallationServerPublicKey")]
+  [BunqObject("ServerPublicKey")]
   public class InstallationServerPublicKey
   {
     /// <summary>
